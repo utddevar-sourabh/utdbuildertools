@@ -1,18 +1,18 @@
 <?php 
-     /* Template Name: Newsletter Template
-     Template Post Type: alumni-link, post, page*/ 
-     ?>
+	 /* Template Name: Newsletter Template
+	 Template Post Type: alumni-link, post, page*/ 
+	 ?>
 <!DOCTYPE html>
 <html class="gr__utdallas_edu">
 <head>
 	<meta charset="UTF-8"><!--[if gte mso 9]>
-            <xml>
-                 <o:OfficeDocumentSettings>
-                        <o:AllowPNG/>
-                        <o:PixelsPerInch>96</o:PixelsPerInch>
-                 </o:OfficeDocumentSettings>
-            </xml>
-            <![endif]-->
+			<xml>
+				 <o:OfficeDocumentSettings>
+						<o:AllowPNG/>
+						<o:PixelsPerInch>96</o:PixelsPerInch>
+				 </o:OfficeDocumentSettings>
+			</xml>
+			<![endif]-->
 	<meta content="text/html; charset=utf-8" http-equiv="Content-type">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -21,10 +21,10 @@
 	<meta content="telephone=no" name="format-detection">
 	<meta name="x-apple-disable-message-reformatting">
 	<title>Alumni Newsletter</title><!--[if gte mso 9]>
-            <style type="text/css" media="all">
-                 sup { font-size: 100% !important; }
-            </style>
-            <![endif]-->
+			<style type="text/css" media="all">
+				 sup { font-size: 100% !important; }
+			</style>
+			<![endif]-->
 
 	<style media="screen" type="text/css">
 		/* Linked Styles */
@@ -70,7 +70,7 @@
 													<table border="0" cellpadding="0" cellspacing="0" width="100%">
 														<tr>
 															<td class="text-top-right" style="color:#ffffff; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:12px; line-height:20px; text-align:right;">
-																<a class="link-white" href="<?php the_field('n_browser_version'); ?>" style="color:#ffffff; text-decoration:none;" target="_blank"><span class="link-white" style="color:#ffffff; text-decoration:none;">View this email in your browser &raquo;</span></a>
+																<a class="link-white" href="<?php echo the_permalink(); ?>" style="color:#ffffff; text-decoration:none;" target="_blank"><span class="link-white" style="color:#ffffff; text-decoration:none;">View this email in your browser &raquo;</span></a>
 															</td>
 														</tr>
 													</table>
@@ -104,7 +104,10 @@
 										<table border="0" cellpadding="0" cellspacing="0" width="100%">
 											<tr>
 												<td class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
-													<a href="<?php the_field('featured_article_url'); ?>" target="_blank"><img alt="<?php the_field('featured_article_image_altText'); ?>" border="0" height="300" src="<?php the_field('featured_article_image'); ?>" width="600"></a>
+													<a href="<?php the_field('featured_article_url'); ?>" target="_blank">
+
+														<img alt="<?php echo get_field('featured_article_image')['alt']; ?>" src="<?php echo get_field('featured_article_image')['url'];  ?>" align="center"width="600" style="max-width: 600px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic">
+													</a>
 												</td>
 											</tr>
 											<tr>
@@ -132,78 +135,79 @@
 											</tr>
 										</table><!-- END Divider -->
 										<!-- Sub Articles  -->
-										<?php if( have_rows('sub_articles') ):
-										                                            // loop through the rows of data
-										                                            while ( have_rows('sub_articles') ) : the_row();
-										                                                if (get_row_index()%2 != 0) : ?><!-- Section Article - Image Left -->
-										<table border="0" cellpadding="0" cellspacing="0" width="100%">
-											<tr>
-												<td class="p-15-20 plr-15" style="padding:15px 20px;">
+										<?php 
+										if( have_rows('sub_articles') ):
+											// loop through the rows of data
+											while ( have_rows('sub_articles') ) : the_row();
+												if (get_row_index()%2 != 0) : ?><!-- Section Article - Image Left -->
 													<table border="0" cellpadding="0" cellspacing="0" width="100%">
 														<tr>
-															<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="175">
-																<div class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
-																	<a href="<?php the_sub_field('article_url') ?>" target="_blank"><img alt="<?php the_sub_field('article_image_alt')?>" border="0" height="175" src="<?php the_sub_field('article_image')?>" width="175"></a>
-																</div>
-															</th>
-															<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="20">
-																<div class="m-br-15" style="font-size:0pt; line-height:0pt;"></div>
-															</th>
-															<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top">
+															<td class="p-15-20 plr-15" style="padding:15px 20px;">
 																<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																	<tr>
-																		<td>
-																			<div class="h1" style="color:#000001; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:20px; line-height:28px; text-align:left;">
-																				<a class="link-black" href="<?php the_sub_field('article_url') ?>" style="color:#000001; text-decoration:none;" target="_blank"><span class="link-black" style="color:#000001; text-decoration:none;"><?php the_sub_field('article_headline'); ?></span></a>
+																		<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="175">
+																			<div class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
+																				<a href="<?php the_sub_field('article_url') ?>" target="_blank"><img alt="<?php echo get_sub_field('article_image')['alt']?>" border="0" height="175" src="<?php echo get_sub_field('article_image')['url'];?>" width="175"></a>
 																			</div>
-																			<div class="text" style="color:#766a62; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:23px; text-align:left;">
-																				<?php the_sub_field('article_excerpt') ?><a class="link" href="<?php the_sub_field('article_url') ?>" style="color:#69be28; text-decoration:none;" target="_blank"><span class="link" style="color:#69be28; text-decoration:none;">Read more &raquo;</span></a>
-																			</div>
-																		</td>
+																		</th>
+																		<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="20">
+																			<div class="m-br-15" style="font-size:0pt; line-height:0pt;"></div>
+																		</th>
+																		<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top">
+																			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																				<tr>
+																					<td>
+																						<div class="h1" style="color:#000001; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:20px; line-height:28px; text-align:left;">
+																							<a class="link-black" href="<?php the_sub_field('article_url') ?>" style="color:#000001; text-decoration:none;" target="_blank"><span class="link-black" style="color:#000001; text-decoration:none;"><?php the_sub_field('article_headline'); ?></span></a>
+																						</div>
+																						<div class="text" style="color:#766a62; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:23px; text-align:left;">
+																							<?php the_sub_field('article_excerpt') ?><a class="link" href="<?php the_sub_field('article_url') ?>" style="color:#69be28; text-decoration:none;" target="_blank"><span class="link" style="color:#69be28; text-decoration:none;">Read more &raquo;</span></a>
+																						</div>
+																					</td>
+																				</tr>
+																			</table>
+																		</th>
 																	</tr>
 																</table>
-															</th>
+															</td>
 														</tr>
-													</table>
-												</td>
-											</tr>
-										</table><!-- END Section Article - Image Left -->
-										<?php else: ?><!-- Section Article - Image Right -->
-										<table border="0" cellpadding="0" cellspacing="0" width="100%">
-											<tr>
-												<td class="plr-15" style="padding: 20px;">
-													<table border="0" cellpadding="0" cellspacing="0" dir="rtl" width="100%">
+													</table><!-- END Section Article - Image Left -->
+												<?php else: ?><!-- Section Article - Image Right -->
+													<table border="0" cellpadding="0" cellspacing="0" width="100%">
 														<tr>
-															<th class="column-top" dir="ltr" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="175">
-																<div class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
-																	<a href="<?php the_sub_field('article_url') ?>" target="_blank"><img alt="<?php the_sub_field('article_image_alt')?>" border="0" height="175" src="<?php the_sub_field('article_image')?>" width="175"></a>
-																</div>
-															</th>
-															<th class="column-top" dir="ltr" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="20">
-																<div class="m-br-15" style="font-size:0pt; line-height:0pt;"></div>
-															</th>
-															<th class="column-top" dir="ltr" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top">
-																<table border="0" cellpadding="0" cellspacing="0" width="100%">
+															<td class="plr-15" style="padding: 20px;">
+																<table border="0" cellpadding="0" cellspacing="0" dir="rtl" width="100%">
 																	<tr>
-																		<td>
-																			<div class="h1" style="color:#000001; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:20px; line-height:28px; text-align:left;">
-																				<a class="link-black" href="<?php the_sub_field('article_url') ?>" style="color:#000001; text-decoration:none;" target="_blank"><span class="link-black" style="color:#000001; text-decoration:none;"><?php the_sub_field('article_headline'); ?></span></a>
+																		<th class="column-top" dir="ltr" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="175">
+																			<div class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
+																				<a href="<?php the_sub_field('article_url') ?>" target="_blank"><img alt="<?php echo get_sub_field('article_image')['alt'];?>" border="0" height="175" src="<?php echo get_sub_field('article_image')['url'];?>" width="175"></a>
 																			</div>
-																			<div class="text" style="color:#766a62; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:23px; text-align:left;">
-																				<?php the_sub_field('article_excerpt') ?><a class="link" href="<?php the_sub_field('article_url') ?>" style="color:#69be28; text-decoration:none;" target="_blank"><span class="link" style="color:#69be28; text-decoration:none;">Read more &raquo;</span></a>
-																			</div>
-																		</td>
+																		</th>
+																		<th class="column-top" dir="ltr" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="20">
+																			<div class="m-br-15" style="font-size:0pt; line-height:0pt;"></div>
+																		</th>
+																		<th class="column-top" dir="ltr" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top">
+																			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																				<tr>
+																					<td>
+																						<div class="h1" style="color:#000001; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:20px; line-height:28px; text-align:left;">
+																							<a class="link-black" href="<?php the_sub_field('article_url') ?>" style="color:#000001; text-decoration:none;" target="_blank"><span class="link-black" style="color:#000001; text-decoration:none;"><?php the_sub_field('article_headline'); ?></span></a>
+																						</div>
+																						<div class="text" style="color:#766a62; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:23px; text-align:left;">
+																							<?php the_sub_field('article_excerpt') ?><a class="link" href="<?php the_sub_field('article_url') ?>" style="color:#69be28; text-decoration:none;" target="_blank"><span class="link" style="color:#69be28; text-decoration:none;">Read more &raquo;</span></a>
+																						</div>
+																					</td>
+																				</tr>
+																			</table>
+																		</th>
 																	</tr>
 																</table>
-															</th>
+															</td>
 														</tr>
-													</table>
-												</td>
-											</tr>
-										</table><!-- END Section Article - Image Right -->
-										<?php endif;
-										                                            endwhile;
-										                                        endif;?><!-- END Sub Articles -->
+													</table><!-- END Section Article - Image Right -->
+												<?php endif;
+											endwhile;
+										endif;?><!-- END Sub Articles -->
 										<!-- Section Alumni Notes -->
 										<table border="0" cellpadding="0" cellspacing="0" width="100%">
 											<tr>
@@ -222,15 +226,15 @@
 													<table border="0" cellpadding="0" cellspacing="0" width="100%">
 														<tr>
 															<?php
-															                                                            //check if the repeater field has rows of data
-															                                                            if( have_rows('alumni_notes') ):
-															                                                                // loop through the rows of data
-															                                                                while ( have_rows('alumni_notes') ) : the_row(); ?>
+																														//check if the repeater field has rows of data
+																														if( have_rows('alumni_notes') ):
+																															// loop through the rows of data
+																															while ( have_rows('alumni_notes') ) : the_row(); ?>
 															<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="173">
 																<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																	<tr>
 																		<td class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
-																			<a href="<?php the_sub_field('alumni_url'); ?>" target="_blank"><img alt="<?php the_sub_field('alumni_image_alt'); ?>" border="0" height="173" src="<?php the_sub_field('alumni_image'); ?>" width="173"></a>
+																			<a href="<?php the_sub_field('alumni_url'); ?>" target="_blank"><img alt="<?php echo get_sub_field('alumni_image')['alt'];?>" border="0" height="173" src="<?php echo get_sub_field('alumni_image')['url'];?>" width="173"></a>
 																		</td>
 																	</tr>
 																	<tr>
@@ -243,8 +247,8 @@
 															<th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;" valign="top" width="20">
 																<div class="m-br-15" style="font-size:0pt; line-height:0pt;"></div>
 															</th><?php endif; 
-															                                                                endwhile;
-															                                                            endif;?><!--  END Alumni Notes -->
+																															endwhile;
+																														endif;?><!--  END Alumni Notes -->
 														</tr>
 													</table>
 												</td>
@@ -262,14 +266,14 @@
 													<table border="0" cellpadding="0" cellspacing="0" width="100%">
 														<tbody>
 															<?php if( have_rows('upcoming_events') ): 
-															                                                                while ( have_rows('upcoming_events') ) : the_row(); ?>
+																															while ( have_rows('upcoming_events') ) : the_row(); ?>
 															<tr>
 																<td class="text-3-black-center" style="padding-bottom: 15px; color:#000001; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:16px; line-height:24px; text-align:center;">
 																	<strong><?php the_sub_field('event_date'); ?></strong><br>
 																	<a class="link" href="<?php the_sub_field('event_url'); ?>" style="color:#69be28; text-decoration:none;" target="_blank"><span class="link" style="color:#69be28; text-decoration:none;"><?php the_sub_field('event_name'); ?></span></a>
 																</td>
 															</tr><?php endwhile;
-															                                                            endif;?>
+																														endif;?>
 														</tbody>
 													</table>
 												</td>
@@ -279,7 +283,7 @@
 										<table border="0" cellpadding="0" cellspacing="0" width="100%">
 											<tr>
 												<td class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:left;">
-													<a href="<?php the_field('final_thought_url')?>" target="_blank"><img alt="<?php the_field('final_thought_image_alt')?>" border="0" height="340" src="<?php the_field('final_thought_image')?>" width="600"></a>
+													<a href="<?php the_field('final_thought_url')?>" target="_blank"><img alt="<?php echo get_field('final_thought_image')['alt']; ?>" border="0" height="340" src="<?php echo get_field('final_thought_image')['url']; ?>" width="600"></a>
 												</td>
 											</tr>
 										</table><!-- END Banner -->

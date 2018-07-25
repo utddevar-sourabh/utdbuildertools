@@ -163,7 +163,7 @@
 					<div class="pre-head" style="text-align: center;">
 						<br>
 						<!--=== LINK TO BROWSER VERSION OF EMAIL ===-->
-						 <a href="<?php the_field('browser_version'); ?>" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #8b8178;font-weight: normal;font-size:12px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-decoration: none;" target="_blank">View this email in your browser »</a><br>
+						 <a href="<?php echo the_permalink(); ?>" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #8b8178;font-weight: normal;font-size:12px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-decoration: none;" target="_blank">View this email in your browser »</a><br>
 						&nbsp;
 					</div>
 				</td><!-- End Content Cell -->
@@ -195,7 +195,7 @@
 				<!-- Content Cell -->
 				<td style="padding:0px;margin:0px;" width="600">
 					<!--=== LINK TO EVENT REGISTRATION OR CTA ===-->
-					 <a class="" href="<?php the_field('cta_url'); ?>" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" target="_blank" title=""><img alt="<?php the_field('hero_image_alt'); ?>" class="mcnImage" src="<?php the_field('hero_image'); ?>" style="max-width: 1200px; padding-bottom: 0; display: inline !important; vertical-align: bottom; border:none; height: auto; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" width="600"></a>
+					 <a class="" href="<?php the_field('cta_url'); ?>" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" target="_blank" title=""><img alt="<?php echo get_field('hero_image')['alt']; ?>" class="mcnImage" src="<?php echo get_field('hero_image')['url']; ?>" style="max-width: 1200px; padding-bottom: 0; display: inline !important; vertical-align: bottom; border:none; height: auto; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" width="600"></a>
 				</td><!-- End Content Cell -->
 				<!-- Stretch Cell -->
 				<td style="padding:0px;margin:0px;">&nbsp;</td><!-- End Stretch Cell -->
@@ -218,7 +218,9 @@
 											<tr>
 												<td align="center" class="utdTextContent" colspan="3" style="font-family: Arial, Helvetica, sans-serif;font-size:16px; mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%; word-break: break-word; line-height: 1.45;text-align: center;" valign="top">
 													<!-- Email Headline -->
-													<h3 class="null" style="display: block; margin: 0; padding: 0; color: #202020; font-family: Helvetica; font-size: 120%; font-style: normal; font-weight: bold; line-height: 130%; letter-spacing: normal; text-align: center;"><?php the_field('headline'); ?></h3><br>
+													<?php if (get_field('headline')): ?>
+														<h3 class="null" style="display: block; margin: 0; padding: 0; color: #202020; font-family: Helvetica; font-size: 120%; font-style: normal; font-weight: bold; line-height: 130%; letter-spacing: normal; text-align: center;"><?php the_field('headline'); ?></h3><br>
+													<?php endif; ?>
 													<!-- Email Headline End-->
 													 <!--=== Email body Copy  ===-->
 													<table align="center" border="0" cellpadding="0" cellspacing="0" class="optionalField" style="max-width: 100%;min-width: 100%;">
@@ -256,11 +258,11 @@
 													</table><?php endif; ?><!--=== Email body Copy End===-->
 													<!--=== CALL TO ACTION BUTTON ===-->
 													<?php if (get_field('cta_text')): ?>
-													<table align="center" border="0" cellpadding="0" cellspacing="0" class="emailButton">
+													<table align="center" border="0" cellpadding="0" cellspacing="0" class="emailButton" style="border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px; background-color:<?php the_field('cta_bg');?>;">
 														<tbody>
-															<tr>
+															<tr style="text-align: center; padding-top:16px; padding-right:40px; padding-bottom:16px; padding-left:40px;">
 																<td align="center" class="emailButtonContent" valign="middle" style="padding-top:16px; padding-right:40px; padding-bottom:16px; padding-left:40px;">
-																	<a href="<?php the_field('cta_url'); ?>" style="color:#FFFFFF; font-family: Arial, Helvetica, sans-serif; font-size:18px; font-weight:bold; text-decoration:none; letter-spacing:1px; text-align: center; padding-top:16px; padding-right:40px; padding-bottom:16px; padding-left:40px; border-radius:4px; background-color:<?php the_field('cta_bg');?>" target="_blank"><?php the_field('cta_text'); ?></a>
+																	<a href="<?php the_field('cta_url'); ?>" style="color:#FFFFFF; font-family: Arial, Helvetica, sans-serif; font-size:18px; font-weight:bold; text-decoration:none; letter-spacing:1px;" target="_blank"><?php the_field('cta_text'); ?></a>
 																</td>
 															</tr>
 														</tbody>
