@@ -17,6 +17,10 @@ function theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
+/*======================================================================
+	Post type HTML Email
+----------------------------------------------------------------------*/
+//Creating a custom post type
 function create_post_type_email() {
 	// set up labels
 	$labels = array(
@@ -50,6 +54,54 @@ function create_post_type_email() {
 }
 add_action( 'init', 'create_post_type_email' );
 
+
+// Editing Custom Post Type columns
+function set_custom_edit_html_email_columns( $columns ) {
+	$date = $colunns['date'];
+	unset( $columns['date'] );
+	unset($columns['tags']);
+	$columns['due_date'] = __( 'Due Date', 'my-text-domain' );
+	$columns['date'] = $date;
+	return $columns;
+}
+add_filter( 'manage_html-email_posts_columns', 'set_custom_edit_html_email_columns' );
+
+// Adding Data to the New Columns
+function custom_html_email_column( $column, $post_id ) {
+  switch ( $column ) {
+	// display the value of an ACF (Advanced Custom Fields) field
+	case 'due_date' :
+		echo get_field( 'due_date', $post_id );  
+		break;
+
+	}
+}
+add_action( 'manage_html-email_posts_custom_column' , 'custom_html_email_column', 10, 2 );
+
+// Sorting based on due dates.
+function set_custom_html_email_sortable_columns( $columns ) {
+	$columns['due_date'] = 'due_date';
+
+	return $columns;
+}
+add_filter( 'manage_edit-html-email_sortable_columns', 'set_custom_html_email_sortable_columns' );
+
+function html_email_custom_orderby( $query ) {
+	if ( ! is_admin() )
+		return;
+	$orderby = $query->get('orderby');
+
+	if ( $orderby == 'due_date') {
+		$query->set( 'meta_key', 'due_date' );
+		$query->set( 'orderby', 'meta_value' );
+	}
+}
+add_action( 'pre_get_posts', 'html_email_custom_orderby' );
+
+
+/* ----------------------------------------------------------------------------
+ * Post type Newsletter
+ * ------------------------------------------------------------------------- */ 
 function create_post_type_newsletter() {
 	// set up labels
 	$labels = array(
@@ -83,7 +135,54 @@ function create_post_type_newsletter() {
 }
 add_action( 'init', 'create_post_type_newsletter' );
 
+// Editing Custom Post Type columns
+function set_custom_edit_alumni_link_columns( $columns ) {
+	$date = $colunns['date'];
+	unset( $columns['date'] );
+	unset($columns['tags']);
+	$columns['due_date'] = __( 'Due Date', 'my-text-domain' );
+	$columns['date'] = $date;
+	return $columns;
+}
+add_filter( 'manage_alumni-link_posts_columns', 'set_custom_edit_alumni_link_columns' );
 
+// Adding Data to the New Columns
+function custom_alumni_link_column( $column, $post_id ) {
+	switch ( $column ) {
+	// display the value of an ACF (Advanced Custom Fields) field
+		case 'due_date' :
+			echo get_field( 'due_date', $post_id );  
+			break;
+
+	}
+}
+add_action( 'manage_alumni-link_posts_custom_column' , 'custom_alumni_link_column', 10, 2 );
+
+// Sorting based on due dates.
+function set_custom_alumni_link_sortable_columns( $columns ) {
+	$columns['due_date'] = 'due_date';
+
+	return $columns;
+}
+add_filter( 'manage_edit-alumni-link_sortable_columns', 'set_custom_alumni_link_sortable_columns' );
+
+function alumni_link_custom_orderby( $query ) {
+	if ( ! is_admin() )
+		return;
+	$orderby = $query->get('orderby');
+
+	if ( $orderby == 'due_date') {
+		$query->set( 'meta_key', 'due_date' );
+		$query->set( 'orderby', 'meta_value' );
+	}
+}
+add_action( 'pre_get_posts', 'alumni_link_custom_orderby' );
+
+
+
+/*======================================================================
+	Post type Event Description
+----------------------------------------------------------------------*/
 function create_post_type_event() {
 	// set up labels
 	$labels = array(
@@ -118,5 +217,44 @@ function create_post_type_event() {
 add_action( 'init', 'create_post_type_event' );
 
 
+// add CPTs to "At a Glance" dashboard widget
+add_action( 'dashboard_glance_items', 'cpad_at_glance_content_table_end' );
+function cpad_at_glance_content_table_end() {
+    $args = array(
+        'public' => true,
+        '_builtin' => false
+    );
+    $output = 'object';
+    $operator = 'and';
+
+    $post_types = get_post_types( $args, $output, $operator );
+    foreach ( $post_types as $post_type ) {
+        $num_posts = wp_count_posts( $post_type->name );
+        $num = number_format_i18n( $num_posts->publish );
+        $text = _n( $post_type->labels->singular_name, $post_type->labels->name, intval( $num_posts->publish ) );
+        if ( current_user_can( 'edit_posts' ) ) {
+            $output = '<a href="edit.php?post_type=' . $post_type->name . '">' . $num . ' ' . $text . '</a>';
+            echo '<li class="post-count ' . $post_type->name . '-count">' . $output . '</li>';
+            } else {
+            $output = '<span>' . $num . ' ' . $text . '</span>';
+                echo '<li class="post-count ' . $post_type->name . '-count">' . $output . '</li>';
+            }
+    }
+}
+
+// Create custom WordPress dashboard widget
+/*
+function dashboard_widget_function() {
+	echo '
+		<h2>Custom Dashboard Widget</h2>
+		<p>Custom content here</p>
+	';
+}
+function add_dashboard_widgets() {
+	wp_add_dashboard_widget( 'custom_dashboard_widget', 'Custom Dashoard Widget', 'dashboard_widget_function' );
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+
+*/
 
 ?>
